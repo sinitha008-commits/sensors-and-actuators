@@ -1,0 +1,35 @@
+# Arduino DC Motor Control with L293D
+
+A hardware and software implementation to control the speed and direction of a standard yellow hobby gearmotor (or similar DC motor) using an Arduino Uno and the **L293D Push-Pull Four-Channel Driver IC**.
+
+This project demonstrates how to use an H-Bridge driver to safely handle inductive motor loads, control rotational direction (Forward/Reverse), and modulate speed via Pulse Width Modulation (PWM).
+
+---
+
+## 🛠️ Components Required
+
+* **1x** Arduino Uno (or compatible microcontroller)
+* **1x** Hobby Gearmotor (e.g., 143RPM Yellow Smart Car Motor)
+* **1x** L293D Motor Driver IC
+* **1x** Breadboard
+* **M/M Jumper Wires**
+
+---
+
+## 📐 Circuit Connection Guide
+
+The L293D is an H-Bridge integrated circuit, which allows voltage to be applied across a load in either direction. This is what enables the motor to spin both clockwise and counter-clockwise safely without damaging the Arduino.
+
+### L293D Pinout Diagram
+
+```text
+          +---\/---+
+ENABLE 1  | 1   16 |  VCC 1 (Logic Power 5V)
+ INPUT 1  | 2   15 |  INPUT 4
+OUTPUT 1  | 3   14 |  OUTPUT 4
+   GND    | 4   13 |  GND
+   GND    | 5   12 |  GND
+OUTPUT 2  | 6   11 |  OUTPUT 4
+ INPUT 2  | 7   10 |  INPUT 3
+   VCC 2  | 8    9 |  ENABLE 2 (Motor Power)
+          +--------+
