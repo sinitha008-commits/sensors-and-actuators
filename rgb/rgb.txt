@@ -1,0 +1,97 @@
+# Arduino Uno RGB LED Color Mixer
+
+A Tinkercad-simulated optoelectronics project demonstrating how to interface a **4-pin RGB (Red-Green-Blue) LED** with an Arduino Uno to mix light channels and output custom spectrum colors.
+
+## 📌 Project Overview
+An RGB LED is essentially three separate miniature LEDs (Red, Green, and Blue) housed inside a single transparent or translucent package. By utilizing Pulse Width Modulation (PWM), the microcontroller can vary the brightness of each channel independently from `0` to `255`. 
+
+Blending these three primary colors at different light intensities allows the system to generate millions of custom variations (such as purple, orange, cyan, or white).
+
+---
+
+## 🛠️ Circuit Anatomy & Component List
+
+The project maps the separate color anodes through independent current-limiting safety resistors down a mini breadboard:
+
+| Component | Quantity | Purpose |
+| :--- | :--- | :--- |
+| **Arduino Uno R3** | 1 | Microcontroller processing unit |
+| **RGB LED (Common Cathode)** | 1 | Tri-color light emitting diode module |
+| **Resistors ($330\Omega$)** | 3 | Current-limiting resistors protecting the color channels |
+| **Mini Breadboard** | 1 | Central prototyping array |
+| **Jumper Wires** | Mixed | Intercomponent control and ground loop paths |
+
+### ⚡ Hardware Wiring Layout
+
+Looking closely at the pin order of a standard common-cathode RGB LED from left to right (Pins 1 to 4):
+
+1. **Red Anode (Column 5):** Driven by Arduino **Digital Pin 13** through a red wire via a $330\Omega$ resistor.
+2. **Common Cathode (Column 6):** Wired directly to the Arduino **GND** pin using a brown wire to complete the circuit return path.
+3. **Blue Anode (Column 7):** Driven by Arduino **Digital Pin 12** through a blue wire via a $330\Omega$ resistor.
+4. **Green Anode (Column 8):** Driven by Arduino **Digital Pin 11** through a green wire via a $330\Omega$ resistor.
+
+*(Note: Pins 11, 12, and 13 on the Arduino Uno are used here as basic digital switches. For advanced color fluid fading, hardware PWM enabled pins like 9, 10, and 11 are normally utilized).*
+
+---
+
+## 💻 Source Code
+
+The firmware below configures the digital output registers and runs a function loop to sequence through primary, secondary, and mixed color spaces.
+
+```cpp
+/**
+ * RGB LED Color Controller Firmware
+ * Alternates between primary and compound colors by toggling anode pins.
+ */
+
+// Define color channel pin mapping
+const int redPin = 13;
+const int bluePin = 12;
+const int greenPin = 11;
+
+void setup() {
+  // Set all three color channels as digital output pins
+  pinMode(redPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+}
+
+void loop() {
+  // 1. Display Pure Red
+  setColor(HIGH, LOW, LOW);
+  delay(1000);
+  
+  // 2. Display Pure Blue
+  setColor(LOW, HIGH, LOW);
+  delay(1000);
+  
+  // 3. Display Pure Green
+  setColor(LOW, LOW, HIGH);
+  delay(1000);
+  
+  // 4. Mix Purple (Red + Blue)
+  setColor(HIGH, HIGH, LOW);
+  delay(1000);
+  
+  // 5. Mix Cyan (Blue + Green)
+  setColor(LOW, HIGH, HIGH);
+  delay(1000);
+  
+  // 6. Mix Yellow (Red + Green)
+  setColor(HIGH, LOW, HIGH);
+  delay(1000);
+  
+  // 7. Mix White (Red + Blue + Green)
+  setColor(HIGH, HIGH, HIGH);
+  delay(1000);
+}
+
+/**
+ * Helper function to update all three channels simultaneously
+ * Parameters accept HIGH (On) or LOW (Off) states
+ */
+void setColor(int redState, int blueState, int greenState) {
+  digitalWrite(redPin, redState);
+  digitalWrite(bluePin, blueState);
+  digitalWrite(greenPin, greenState);
+}
