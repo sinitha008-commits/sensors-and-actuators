@@ -1,0 +1,11 @@
+int pir = 2;
+
+void setup() {
+  pinMode(pir, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println(digitalRead(pir));
+  delay(500);
+}

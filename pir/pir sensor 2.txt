@@ -1,0 +1,140 @@
+# PIR Motion Sensor with Arduino (Tinkercad)
+
+## Overview
+
+This project demonstrates how to interface a PIR (Passive Infrared) Motion Sensor with an Arduino Uno in Tinkercad. The PIR sensor detects motion by sensing changes in infrared radiation emitted by objects such as humans and animals.
+
+When motion is detected, the sensor outputs a HIGH signal. The Arduino reads this signal and displays the result on the Serial Monitor.
+
+---
+
+## Components Required
+
+- Arduino Uno
+- PIR Motion Sensor
+- Breadboard
+- Jumper Wires
+- Tinkercad Circuits
+
+---
+
+## Circuit Connections
+
+| PIR Sensor Pin | Arduino Connection |
+|---------------|-------------------|
+| VCC | 5V |
+| OUT | Digital Pin 2 |
+| GND | GND |
+
+### Connection Diagram
+
+```
+PIR Sensor         Arduino Uno
+--------------------------------
+VCC      --------> 5V
+OUT      --------> D2
+GND      --------> GND
+```
+
+---
+
+## Arduino Code
+
+```cpp
+int pir = 2;
+
+void setup() {
+  pinMode(pir, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println(digitalRead(pir));
+  delay(500);
+}
+```
+
+---
+
+## Working Principle
+
+1. The PIR sensor continuously monitors infrared radiation.
+2. When a person or object moves within its detection range, the infrared pattern changes.
+3. The sensor outputs a HIGH signal (1).
+4. Arduino reads the signal through Digital Pin 2.
+5. The result is displayed on the Serial Monitor.
+
+---
+
+## Expected Output
+
+### No Motion Detected
+
+```
+0
+0
+0
+0
+```
+
+### Motion Detected
+
+```
+1
+1
+1
+1
+```
+
+Where:
+
+- 0 = No Motion Detected
+- 1 = Motion Detected
+
+---
+
+## Applications
+
+- Security Alarm Systems
+- Automatic Lighting Systems
+- Smart Home Automation
+- Occupancy Detection
+- Energy Saving Systems
+- Intruder Detection
+
+---
+
+## Learning Outcomes
+
+- Understanding digital sensors
+- Reading digital inputs using Arduino
+- Motion detection using PIR sensors
+- Using Serial Monitor for output
+- Simulating sensors in Tinkercad
+
+---
+
+## How to Run
+
+1. Open Tinkercad Circuits.
+2. Create a new circuit.
+3. Add an Arduino Uno and a PIR Motion Sensor.
+4. Connect the sensor according to the circuit diagram.
+5. Copy and paste the Arduino code into the code editor.
+6. Start the simulation.
+7. Open the Serial Monitor.
+8. Trigger the PIR sensor in Tinkercad to observe motion detection.
+
+---
+
+## Author
+
+**Sinitha K S**  
+Second Semester Electronics Engineering Student  
+College of Engineering Kidangoor
+
+---
+
+## License
+
+This project is developed for educational and learning purposes.
