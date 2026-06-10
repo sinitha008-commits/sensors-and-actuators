@@ -1,0 +1,49 @@
+# Arduino Addressable RGB LED Strip Controller (WS2812B / NeoPixel)
+
+A hardware and software implementation to daisy-chain and control multiple addressable RGB LED strips (WS2812B/NeoPixel) using an Arduino Uno. 
+
+This repository demonstrates the correct directional data flow mapping (**Data Out to Data In**) required to combine discrete LED strips into a single continuous addressable array.
+
+---
+
+## 🛠️ Components Required
+
+* **1x** Arduino Uno (or compatible microcontroller)
+* **2x** WS2812B / NeoPixel LED Strips (10-pixel and 5-pixel segments used in layout)
+* **M/M Jumper Wires**
+
+---
+
+## 📐 Circuit Connection Guide
+
+Addressable LEDs require synchronous data processing. Data must flow sequentially in one direction: from the microcontroller into the first strip's **DIN (Data In)**, out of its **DO (Data Out)**, and straight into the subsequent strip's **DIN**.
+
+### Connection Routing Table
+
+| Source Device / Pin | Destination Device / Pin | Wire Color (Standard) | Purpose |
+| :--- | :--- | :--- | :--- |
+| **Arduino 5V** | Strip 1 **+5V** | Red | Main Logic & LED Power |
+| **Arduino GND** | Strip 1 **GND** | Black | Common Ground |
+| **Arduino Digital Pin 2** | Strip 1 **DIN** | Green | Serial Data Signal Input |
+| **Strip 1 +5V** (Far Right) | Strip 2 **+5V** | Red | Parallel Power Bus Extension |
+| **Strip 1 GND** (Far Right) | Strip 2 **GND** | Black | Ground Rail Extension |
+| **Strip 1 DO** (Far Right) | Strip 2 **DIN** (Top Pin) | Green | Daisy-chained Data Signal |
+
+### Data Flow Diagram
+
+```text
+    [ Arduino Uno ]
+     (5V)   (GND)   (Digital Pin 2)
+      │       │            │
+      ▼       ▼            ▼
+   ┌─────────────────────────────────────────┐
+   │ [ +5V ] [ GND ]   [ DIN ]               │  <-- LED Strip 1 (Horizontal)
+   │                                 [ DO ]  │
+   └───────────────────────────────────┬─────┘
+                                       │
+      ┌────────────────────────────────┘ (Data Out connects to Data In)
+      ▼
+   ┌─────────────────────────────────────────┐
+   │ [ DIN ] [ +5V ]   [ GND ]               │  <-- LED Strip 2 (Vertical)
+   │                                         │
+   └─────────────────────────────────────────┘
