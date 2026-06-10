@@ -1,0 +1,64 @@
+# Arduino Vibration Motor Controller
+
+A safe hardware and software implementation to control a small haptic vibration motor (coin or cylinder style) using an Arduino Uno and an NPN transistor. 
+
+This project demonstrates the correct use of a **flyback diode** to protect microcontrollers from inductive voltage spikes (back-EMF) and an **NPN transistor** to safely handle the motor's current draw.
+
+---
+
+## 🛠️ Components Required
+
+* **1x** Arduino Uno (or compatible microcontroller)
+* **1x** Vibration Motor (3V - 5V)
+* **1x** NPN Transistor (PN2222, 2N2222, or 2N3904)
+* **1x** 1kΩ Resistor
+* **1x** 1N4001 Diode (Flyback Diode)
+* **1x** Breadboard & Jumper Wires
+
+---
+
+## 📐 Circuit Connection Guide
+
+Because motors are inductive loads, connecting them directly to an Arduino data pin will pull too much current and burn out the I/O pin. We use an NPN transistor as an electronic switch.
+
+### Pin Map Table
+
+| Component | Pin / Wire | Connects To | Purpose |
+| :--- | :--- | :--- | :--- |
+| **Transistor** | Emitter (E) | Arduino **GND** | Provides common ground |
+| **Transistor** | Base (B) | **1kΩ Resistor** | Limits current from Arduino pin |
+| **Resistor** | Other End | Arduino **Digital Pin 3** | Controls the switch state |
+| **Transistor** | Collector (C) | Motor **Black Wire** (Negative) | Completes the circuit loop |
+| **Motor** | **Red Wire** (Positive) | Arduino **5V** (or 3.3V) | Supplies main power to motor |
+| **Diode** | **Cathode** (Silver Stripe) | Motor **Red Wire** (5V) | Snubs dangerous back-EMF spikes |
+| **Diode** | **Anode** (Black Side) | Motor **Black Wire** | Directs spike away from transistor |
+
+### Breadboard Layout Sketch
+
+```text
+    [ Arduino Uno ]
+     (5V)    (GND)    (Digital Pin 3)
+      │        │            │
+      │        │            ▼
+      │        │       [ 1kΩ Resistor ]
+      │        │            │
+      │        │            ▼
+      │        │       (Base Pin)
+      │        └──────►(Emitter Pin)   [ NPN Transistor ]
+      │                (Collector Pin) (e.g., PN2222)
+      │                     ▲
+      │                     │
+      ├─────────────────────┴──────┐
+      ▼                            ▼
+   ┌──────────────────────────────────┐
+   │        [ 1N4001 Diode ]          │
+   │  (Stripe Side)   (No Stripe Side)│
+   └──────────────────────────────────┘
+      ▲                            ▲
+      │                            │
+   (Red Wire)                 (Black Wire)
+   ┌──────────────────────────────────┐
+   │                                  │
+   │         Vibration Motor          │
+   │                                  │
+   └──────────────────────────────────┘
