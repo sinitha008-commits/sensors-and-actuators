@@ -1,0 +1,48 @@
+# Arduino Flex Sensor Circuit (Tinkercad Simulation)
+
+This repository contains the circuit design and Arduino code for interfacing a **2-terminal Flex Sensor** with an Arduino Uno. Because a flex sensor is a variable resistor, this project utilizes a **voltage divider circuit** with a $10\text{ k}\Omega$ static resistor to translate physical bending into readable analog voltage data.
+
+## 🛠️ Circuit Components
+* Arduino Uno R3
+* Flex Sensor (2 Terminals)
+* $10\text{ k}\Omega$ Resistor (Color code: Brown, Black, Orange, Gold)
+* Breadboard & Jumper Wires
+
+---
+
+## 🔌 Wiring Diagram & Connections
+
+Since the flex sensor only has 2 terminals, the wiring requires a specific junction point (Voltage Divider) to function properly:
+
+| Component / Pin | Connection Point |
+| :--- | :--- |
+| **Flex Sensor Terminal 1** | Arduino **5V** |
+| **Flex Sensor Terminal 2** | Arduino **A0** AND One leg of the **$10\text{ k}\Omega$ Resistor** |
+| **Resistor (Other Leg)** | Arduino **GND** |
+
+### Visual Layout Guide
+1. Plug the Flex Sensor into two separate rows on your breadboard (e.g., Row 10 and Row 11).
+2. Connect **5V** to Row 10.
+3. Place the **$10\text{ k}\Omega$ Resistor** bridging Row 11 to an empty row (e.g., Row 15).
+4. Connect **GND** to Row 15.
+5. Connect **A0** to Row 11 (the junction where the sensor and resistor meet).
+
+---
+
+## 💻 Arduino Code
+
+```cpp
+const int flexPin = A0; // Pin connected to the voltage divider junction
+
+void setup() {
+  Serial.begin(9600);   // Initialize serial communication at 9600 bps
+}
+
+void loop() {
+  int flexValue = analogRead(flexPin); // Read the analog value (0-1023)
+  
+  Serial.print("Flex Sensor Value: ");
+  Serial.println(flexValue);
+  
+  delay(100); // Small delay for stability and readability
+}

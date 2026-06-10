@@ -1,0 +1,14 @@
+const int flexPin = A0; // Pin connected to voltage divider
+
+void setup() {
+  Serial.begin(9600);   // Initialize serial communication
+}
+
+void  loop() {
+  int flexValue = analogRead(flexPin); // Read the analog value (0-1023)
+  
+  Serial.print("Flex Value: ");
+  Serial.println(flexValue);
+  
+  delay(100); // Small delay to keep the monitor readable
+}
