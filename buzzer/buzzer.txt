@@ -1,0 +1,12 @@
+void setup()
+{
+  pinMode(9, OUTPUT);
+}
+
+void loop()
+{
+  tone(9, 471);
+  delay(1000); // Wait for 1000 millisecond(s)
+  noTone(9);
+  delay(1000); // Wait for 1000 millisecond(s)
+}

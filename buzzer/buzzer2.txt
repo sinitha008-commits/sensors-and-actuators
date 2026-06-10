@@ -1,0 +1,69 @@
+# Arduino Uno Piezo Knock/Vibration Sensor
+
+A Tinkercad-simulated physical computing project that implements a **Piezoelectric element as an analog input sensor**. The circuit is designed with a parallel load resistor to safely monitor mechanical impacts, taps, or structural vibrations through an Arduino Uno microcontroller.
+
+## 📌 Project Overview
+While piezo elements are traditionally utilized as output actuators (buzzers), they operate reversibly due to the *piezoelectric effect*. Physical deformation of the internal crystal structure induces a measurable electrical voltage. 
+
+This repository documents the circuit design, breadboard routing layout, and source code required to sample these analog spikes and process them via the Arduino Serial Monitor interface.
+
+---
+
+## 🛠️ Circuit Anatomy & Component List
+
+The project utilizes a breadboard configuration to establish solid, parallel node distributions between the input sensor and the microcontroller unit:
+
+| Component | Quantity | Purpose |
+| :--- | :--- | :--- |
+| **Arduino Uno R3** | 1 | Microcontroller processing unit |
+| **Piezo Element** | 1 | Dynamic input sensor generating mechanical-to-electrical voltage spikes |
+| **Resistor ($1\text{ M}\Omega$)** | 1 | High-value bleeding/load resistor wired in parallel to prevent high-voltage overshoots from damaging the microchip |
+| **Half-Size Breadboard**| 1 | Main circuit routing matrix |
+| **Jumper Wires** | Mixed | Intercomponent electrical signal and power rail links |
+
+### ⚡ Wiring Layout Reference
+
+Based on the schematic layout, the connections are routed as follows:
+
+1. **Power Rails:**
+   * Arduino **5V** $\rightarrow$ Breadboard Bottom Positive Rail (`+`) [Red Wire]
+   * Arduino **GND** $\rightarrow$ Breadboard Bottom Negative Rail (`-`) [Green Wire]
+   * *Cross-over links* extend Ground and Power to the top rails respectively.
+
+2. **Sensor Node Junctions (Parallel Configuration):**
+   * **Positive Node (Column 12):** The Piezo **Positive (+)** terminal maps to column 12. A $1\text{ M}\Omega$ resistor bridges column 12 across the center divider to the lower segment. A red jumper links this isolated node back down to the positive power rail.
+   * **Negative Node (Column 17):** The Piezo **Negative (-)** terminal drops into column 17. A green jumper links column 17 straight back to the Arduino **Analog Input Pin A0**.
+
+---
+
+## 💻 Source Code
+
+The implementation utilizes an optimized threshold filtering script to monitor structural impacts while discarding background environmental noise.
+
+```cpp
+/**
+ * Piezo Impact Sensor Firmware
+ * Reads raw analog voltage spikes from a parallel piezo load node.
+ */
+
+const int sensorPin = A0;   // Analog input channel connected to the piezo circuit
+const int threshold = 30;   // Low-pass filter baseline threshold (adjust for sensitivity)
+
+void setup() {
+  // Initialize standard hardware serial protocol at 9600 baud rate
+  Serial.begin(9600); 
+}
+
+void loop() {
+  // Sample the 10-bit Successive Approximation ADC (Value ranges: 0 - 1023)
+  int sensorValue = analogRead(sensorPin); 
+
+  // Evaluate structural impact against filtering limits
+  if (sensorValue >= threshold) {
+    Serial.print("Vibration/Knock Detected! Force Amplitude: ");
+    Serial.println(sensorValue);
+    
+    // Hardware debounce interval to prevent iterative edge-triggering on a single knock
+    delay(150); 
+  }
+}
