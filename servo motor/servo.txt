@@ -1,0 +1,119 @@
+# Arduino Uno Servo Motor Controller with State Indicator LEDs and Pushbutton
+
+A Tinkercad-simulated physical computing system demonstrating how to build an interactive positional control system using an Arduino Uno, a micro servo motor, dual indicator LEDs, and a tactile pushbutton switch.
+
+## 📌 Project Overview
+This project focuses on **state-driven actuator control**. By pressing a tactile momentary pushbutton, the microcontroller toggles between different target states. The controller handles a complex mix of inputs and outputs simultaneously:
+
+1. **Input Monitoring:** Polling a digital input channel to catch momentary button presses while filtering out false physical bounces.
+2. **Positional Actuation:** Driving a micro servo motor smoothly to pre-defined degree angles (e.g., swapping between 0° and 90° or 180° configurations).
+3. **Visual Telemetry Output:** Powering status LEDs (Red and Green) to visually indicate the system's current positional state or safe operational mode.
+
+---
+
+## 🛠️ Circuit Anatomy & Component List
+
+The implementation is mounted on a half-size breadboard using shared power rails for efficient power distribution:
+
+| Component | Quantity | Purpose |
+| :--- | :--- | :--- |
+| **Arduino Uno R3** | 1 | Microcontroller processing unit |
+| **Micro Servo Motor** | 1 | Positional rotary mechanical actuator |
+| **LEDs (Red, Green)** | 2 | Visual status feedback indicators |
+| **Tactile Pushbutton** | 1 | Momentary input switch to change system states |
+| **Resistor ($10\text{ k}\Omega$)** | 1 | Pull-down resistor stabilizing the pushbutton input state |
+| **Half-Size Breadboard**| 1 | Central wiring and bus distribution board |
+| **Jumper Wires** | Mixed | Core signal and bus lines |
+
+### ⚡ Hardware Wiring Configuration
+
+The circuit layout maps out the following hardware connections:
+
+1. **Power Rails Infrastructure:**
+   * Arduino **5V** $\rightarrow$ Lower Breadboard Positive Rail (`+`) [Red Wire]
+   * Arduino **GND** $\rightarrow$ Lower Breadboard Negative Rail (`-`) [Black Wire]
+   * *Cross-over jumpers* route power and common grounds to the top rails to energize the layout elements.
+
+2. **Pushbutton Input Configuration:**
+   * One side of the button hooks directly to the upper positive power rail (Column 14).
+   * The opposite terminal (Column 12) maps to a $10\text{ k}\Omega$ pull-down resistor tied to ground, pulling the channel logic smoothly down to `LOW` when open.
+   * A green jumper picks up the button junction point at Column 12 and feeds it straight to Arduino **Digital Pin 12**.
+
+3. **Dual Status Indicator LEDs:**
+   * **Red LED:** Anode pin maps to Arduino **Digital Pin 4** (Light Blue Wire). Cathode pin jumps to the common ground rail via a short black wire.
+   * **Green LED:** Anode pin maps to Arduino **Digital Pin 3** (Purple Wire). Cathode pin jumps directly to the common ground rail.
+
+4. **Servo Motor Control Loop:**
+   * **Power (Red wire):** Routes to the active positive breadboard rail.
+   * **Ground (Black wire):** Routes to the common ground rail.
+   * **Signal (Orange wire):** Receives positional PWM commands directly from Arduino **Digital Pin 13**.
+
+---
+
+## 💻 Source Code
+
+The firmware uses the standard Arduino `Servo.h` library to communicate with the motor and implements basic software state logic to cycle modes on every button press.
+
+```cpp
+/**
+ * Interactive Servo and LED State-Machine Firmware
+ * Toggles a micro servo position and switches indicator status LEDs via button input.
+ */
+
+#include <Servo.h>
+
+// Pin assignments
+const int buttonPin = 12; // Pin connected to the pushbutton
+const int redLedPin = 4;   // Pin connected to the Red LED
+const int greenLedPin = 3; // Pin connected to the Green LED
+const int servoPin = 13;   // Pin connected to the Servo Signal line
+
+// State monitoring variables
+Servo myServo;             // Create a servo object
+int systemState = 0;       // Keeps track of the current mode
+int buttonState = 0;       // Current reading from the input pin
+int lastButtonState = 0;   // Previous reading from the input pin
+
+void setup() {
+  // Define input/output pin directions
+  pinMode(buttonPin, INPUT);
+  pinMode(redLedPin, OUTPUT);
+  pinMode(greenLedPin, OUTPUT);
+  
+  // Attach the servo object to its signal control pin
+  myServo.attach(servoPin);
+  
+  // Set initial home state: 0 degrees, Green LED active, Red LED inactive
+  myServo.write(0);
+  digitalWrite(greenLedPin, HIGH);
+  digitalWrite(redLedPin, LOW);
+}
+
+void loop() {
+  // Sample the voltage on the input channel
+  buttonState = digitalRead(buttonPin);
+
+  // Check for a rising-edge trigger (button transitions from LOW to HIGH)
+  if (buttonState == HIGH && lastButtonState == LOW) {
+    // Toggle system state tracker between mode 0 and mode 1
+    systemState = !systemState;
+    
+    if (systemState == 1) {
+      // --- STATE 1: Actuated Position ---
+      myServo.write(90);             // Sweep servo arm to 90 degrees
+      digitalWrite(greenLedPin, LOW); // Turn off Green LED
+      digitalWrite(redLedPin, HIGH);  // Turn on Red LED
+    } else {
+      // --- STATE 0: Safe/Home Position ---
+      myServo.write(0);               // Return servo arm to 0 degrees
+      digitalWrite(greenLedPin, HIGH); // Turn on Green LED
+      digitalWrite(redLedPin, LOW);   // Turn off Red LED
+    }
+    
+    // Software debounce window to let mechanical contacts settle safely
+    delay(200);
+  }
+  
+  // Save current reading as the baseline configuration for the next looping cycle
+  lastButtonState = buttonState;
+}
