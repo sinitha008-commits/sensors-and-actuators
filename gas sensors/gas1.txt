@@ -1,0 +1,171 @@
+# Gas Sensor (MQ-2) with Arduino (Tinkercad)
+
+## Overview
+
+This project demonstrates how to interface an MQ-2 Gas Sensor with an Arduino Uno in Tinkercad. The MQ-2 sensor is capable of detecting gases such as LPG, methane, propane, hydrogen, and smoke. The sensor provides an analog output that can be read by the Arduino.
+
+The Arduino continuously monitors the gas concentration and displays the readings on the Serial Monitor.
+
+---
+
+## Components Required
+
+- Arduino Uno
+- MQ-2 Gas Sensor
+- Breadboard
+- Jumper Wires
+- Tinkercad Circuits
+
+---
+
+## Circuit Connections
+
+| MQ-2 Sensor Pin | Arduino Connection |
+|----------------|-------------------|
+| VCC | 5V |
+| GND | GND |
+| AOUT (SIG) | A0 |
+
+### Circuit Diagram
+
+```
+MQ-2 Gas Sensor          Arduino Uno
+------------------------------------
+VCC      ------------->  5V
+GND      ------------->  GND
+AOUT/SIG ------------->  A0
+```
+
+---
+
+## Arduino Code
+
+```cpp
+const int gasSensor = A0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int gasValue = analogRead(gasSensor);
+
+  Serial.print("Gas Value: ");
+  Serial.println(gasValue);
+
+  delay(500);
+}
+```
+
+---
+
+## Gas Detection Code
+
+```cpp
+const int gasSensor = A0;
+const int threshold = 400;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int gasValue = analogRead(gasSensor);
+
+  Serial.print("Gas Value: ");
+  Serial.println(gasValue);
+
+  if (gasValue > threshold) {
+    Serial.println("Gas Detected!");
+  } else {
+    Serial.println("Air is Normal");
+  }
+
+  delay(500);
+}
+```
+
+---
+
+## Working Principle
+
+1. The MQ-2 sensor detects combustible gases and smoke.
+2. The sensor outputs an analog voltage based on gas concentration.
+3. Arduino reads the analog value through pin A0.
+4. Higher gas concentrations produce higher readings.
+5. The values are displayed on the Serial Monitor.
+
+---
+
+## Expected Output
+
+### Normal Air
+
+```
+Gas Value: 120
+Air is Normal
+
+Gas Value: 180
+Air is Normal
+```
+
+### Gas Detected
+
+```
+Gas Value: 650
+Gas Detected!
+
+Gas Value: 850
+Gas Detected!
+```
+
+---
+
+## Applications
+
+- Gas Leakage Detection
+- Smoke Detection Systems
+- Industrial Safety Monitoring
+- Fire Warning Systems
+- Smart Home Automation
+- Environmental Monitoring
+
+---
+
+## Learning Outcomes
+
+- Understanding gas sensing technology
+- Reading analog sensor values
+- Using Arduino analog inputs
+- Monitoring data through the Serial Monitor
+- Simulating gas detection circuits in Tinkercad
+
+---
+
+## How to Run
+
+1. Open Tinkercad Circuits.
+2. Create a new circuit.
+3. Add an Arduino Uno and an MQ-2 Gas Sensor.
+4. Connect:
+   - VCC → 5V
+   - GND → GND
+   - AOUT/SIG → A0
+5. Copy and paste the Arduino code.
+6. Start the simulation.
+7. Adjust the gas concentration using the sensor controls.
+8. Observe the readings in the Serial Monitor.
+
+---
+
+## Author
+
+**Sinitha K S**  
+Second Semester Electronics Engineering Student  
+College of Engineering Kidangoor
+
+---
+
+## License
+
+This project is developed for educational and learning purposes.

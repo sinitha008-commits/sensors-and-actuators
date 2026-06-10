@@ -1,0 +1,21 @@
+const int gasSensor = A0;
+const int threshold = 400;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int gasValue = analogRead(gasSensor);
+
+  Serial.print("Gas Value: ");
+  Serial.println(gasValue);
+
+  if (gasValue > threshold) {
+    Serial.println("Gas Detected!");
+  } else {
+    Serial.println("Air is Normal");
+  }
+
+  delay(500);
+}
