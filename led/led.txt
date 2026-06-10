@@ -1,0 +1,48 @@
+# Arduino LED Blink Circuit
+
+A foundational hardware and software project demonstrating how to control a Light Emitting Diode (LED) using an Arduino Uno. 
+
+This repository highlights fundamental electronics concepts including current-limiting resistors, breadboard terminal layout structures, and completing a closed electrical circuit loop.
+
+---
+
+## 🛠️ Components Required
+
+* **1x** Arduino Uno (or compatible microcontroller)
+* **1x** Standard 5mm LED
+* **1x** 220Ω or 330Ω Resistor (to protect the LED from burning out)
+* **1x** Breadboard
+* **M/M Jumper Wires**
+
+---
+
+## 📐 Circuit Connection Guide
+
+Breadboards feature a physical center divider (trench) separating the top half from the bottom half. To bridge connections across this gap, components or jumper wires must physically straddle it.
+
+### Pin Mapping Table
+
+| Component | Pin / Leg | Connects To | Purpose |
+| :--- | :--- | :--- | :--- |
+| **Arduino Pin 13** | Output Signal | **Resistor Input** | Sends 5V (HIGH) or 0V (LOW) pulses |
+| **Resistor** | Output End | LED **Cathode** (Straight/Shorter Leg) | Limits current to prevent burning the LED |
+| **LED** | **Anode** (Bent/Longer Leg) | Arduino **GND** (via Jumper Wire) | Completes the circuit loop back to ground |
+
+### Breadboard Layout Diagram
+
+```text
+    [ Arduino Uno ]
+         (Pin 13)    (GND)
+            │          │
+            ▼          ▼
+      =============[Breadboard Bottom Half]=============
+      [Row A, Col 7] ──► [ 220Ω Resistor ] ──► [Row D, Col 7]
+                                                    │
+                                                    ▼
+                                             [Row E, Col 7] (LED Straight Leg)
+      =============  CENTER TRENCH GAP  ================
+                                             [Row F, Col 7] (LED Bent Leg)
+                                                    │
+                                                    ▼
+      =============[Breadboard Top Half]===============
+                                             [Row J, Col 7] ──► Return to GND
