@@ -1,0 +1,132 @@
+# TMP36 Temperature Sensor with Arduino (Tinkercad)
+
+## Overview
+
+This project demonstrates how to interface a TMP36 temperature sensor with an Arduino Uno in Tinkercad. The TMP36 is an analog temperature sensor that provides a voltage output proportional to the ambient temperature.
+
+The Arduino reads the sensor's analog output, converts it into temperature values in degrees Celsius, and displays the result on the Serial Monitor.
+
+---
+
+## Components Required
+
+- Arduino Uno
+- TMP36 Temperature Sensor
+- Breadboard
+- Jumper Wires
+- Tinkercad Circuits
+
+---
+
+## Circuit Connections
+
+When the flat side of the TMP36 is facing you:
+
+| TMP36 Pin | Connection |
+|------------|------------|
+| Left Pin (Vs) | Arduino 5V |
+| Middle Pin (Vout) | Arduino A0 |
+| Right Pin (GND) | Arduino GND |
+
+### Connection Diagram
+
+```
+TMP36             Arduino Uno
+--------------------------------
+Left Pin   ------> 5V
+Middle Pin ------> A0
+Right Pin  ------> GND
+```
+
+---
+
+## Arduino Code
+
+```cpp
+const int tempPin = A0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int sensorValue = analogRead(tempPin);
+
+  float voltage = sensorValue * (5.0 / 1023.0);
+
+  float temperatureC = (voltage - 0.5) * 100;
+
+  Serial.print("Temperature: ");
+  Serial.print(temperatureC);
+  Serial.println(" °C");
+
+  delay(1000);
+}
+```
+
+---
+
+## Working Principle
+
+1. The TMP36 senses the surrounding temperature.
+2. It generates an analog voltage proportional to the temperature.
+3. Arduino reads the voltage through analog pin A0.
+4. The voltage is converted into temperature using the TMP36 formula.
+5. The temperature value is displayed on the Serial Monitor.
+
+---
+
+## Formula Used
+
+The TMP36 output voltage is related to temperature by:
+
+:contentReference[oaicite:0]{index=0}
+
+Where:
+
+- T = Temperature in °C
+- Vout = Sensor output voltage
+
+---
+
+## Expected Output
+
+Example Serial Monitor Output:
+
+```
+Temperature: 24.80 °C
+Temperature: 25.10 °C
+Temperature: 25.30 °C
+```
+
+---
+
+## Applications
+
+- Weather Monitoring Systems
+- Smart Home Automation
+- Environmental Monitoring
+- Industrial Temperature Measurement
+- IoT-based Monitoring Systems
+
+---
+
+## Learning Outcomes
+
+- Understanding analog sensors
+- Reading analog values using Arduino
+- Converting voltage to temperature
+- Using Serial Monitor for data visualization
+- Simulating circuits in Tinkercad
+
+---
+
+## Author
+
+**Sinitha K S**  
+Second Semester Electronics Engineering Student  
+College of Engineering Kidangoor
+
+## License
+
+This project is developed for educational and learning purposes.
