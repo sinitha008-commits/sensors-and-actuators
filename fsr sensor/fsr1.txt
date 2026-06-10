@@ -1,0 +1,150 @@
+# Force Sensitive Resistor (FSR) Sensor with Arduino (Tinkercad)
+
+## Overview
+
+This project demonstrates how to interface a Force Sensitive Resistor (FSR) sensor with an Arduino Uno in Tinkercad. The FSR sensor changes its resistance when pressure is applied. Arduino reads the corresponding analog value and displays it on the Serial Monitor.
+
+---
+
+## Components Required
+
+- Arduino Uno
+- Force Sensitive Resistor (FSR)
+- 10kΩ Resistor
+- Breadboard
+- Jumper Wires
+- Tinkercad Circuits
+
+---
+
+## Circuit Connections
+
+| Component | Arduino Connection |
+|------------|-------------------|
+| FSR Leg 1 | 5V |
+| FSR Leg 2 | A0 |
+| 10kΩ Resistor End 1 | A0 |
+| 10kΩ Resistor End 2 | GND |
+
+### Circuit Diagram
+
+```
+        5V
+         |
+        FSR
+         |
+         +------ A0
+         |
+       10kΩ
+         |
+        GND
+```
+
+---
+
+## Arduino Code
+
+```cpp
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int force = analogRead(A0);
+
+  Serial.print("Force Value: ");
+  Serial.println(force);
+
+  delay(500);
+}
+```
+
+---
+
+## Working Principle
+
+The FSR is a pressure-sensitive resistor. When force is applied:
+
+- Resistance decreases
+- Output voltage increases
+- Arduino reads a higher analog value
+
+The FSR and 10kΩ resistor form a voltage divider circuit that allows Arduino to measure changes in resistance as voltage changes.
+
+---
+
+## Expected Output
+
+### No Pressure
+
+```
+Force Value: 0
+Force Value: 2
+Force Value: 5
+```
+
+### Medium Pressure
+
+```
+Force Value: 250
+Force Value: 340
+Force Value: 410
+```
+
+### High Pressure
+
+```
+Force Value: 700
+Force Value: 850
+Force Value: 950
+```
+
+The values may vary depending on the amount of force applied.
+
+---
+
+## Applications
+
+- Electronic weighing systems
+- Pressure-sensitive switches
+- Robotics
+- Medical monitoring devices
+- Touch-sensitive interfaces
+- Smart wearable devices
+
+---
+
+## Learning Outcomes
+
+- Understanding force-sensitive sensors
+- Using analog inputs with Arduino
+- Building voltage divider circuits
+- Reading sensor values through Serial Monitor
+- Simulating circuits using Tinkercad
+
+---
+
+## How to Run
+
+1. Open Tinkercad Circuits.
+2. Create a new circuit.
+3. Add an Arduino Uno, FSR sensor, and a 10kΩ resistor.
+4. Connect the circuit according to the wiring diagram.
+5. Copy and paste the Arduino code.
+6. Start the simulation.
+7. Apply pressure to the FSR sensor.
+8. Observe the changing values in the Serial Monitor.
+
+---
+
+## Author
+
+**Sinitha K S**  
+Second Semester Electronics Engineering Student  
+College of Engineering Kidangoor
+
+---
+
+## License
+
+This project is developed for educational and learning purposes.

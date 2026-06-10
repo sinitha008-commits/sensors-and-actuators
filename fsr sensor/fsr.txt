@@ -1,0 +1,9 @@
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int force = analogRead(A0);
+  Serial.println(force);
+  delay(500);
+}
