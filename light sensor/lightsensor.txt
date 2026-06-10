@@ -1,0 +1,144 @@
+# LDR (Light Dependent Resistor) Sensor with Arduino (Tinkercad)
+
+## Overview
+
+This project demonstrates how to interface an LDR (Light Dependent Resistor) with an Arduino Uno in Tinkercad. An LDR is a light-sensitive resistor whose resistance changes according to the intensity of light falling on it.
+
+The Arduino reads the analog value from the LDR and displays the light intensity on the Serial Monitor.
+
+---
+
+## Components Required
+
+- Arduino Uno
+- LDR (Photoresistor)
+- 10kΩ Resistor
+- Breadboard
+- Jumper Wires
+- Tinkercad Circuits
+
+---
+
+## Circuit Connections
+
+| Component | Arduino Connection |
+|------------|-------------------|
+| LDR Leg 1 | 5V |
+| LDR Leg 2 | A0 |
+| 10kΩ Resistor End 1 | A0 |
+| 10kΩ Resistor End 2 | GND |
+
+### Circuit Diagram
+
+```
+        5V
+         |
+        LDR
+         |
+         +------ A0
+         |
+       10kΩ
+         |
+        GND
+```
+
+---
+
+## Arduino Code
+
+```cpp
+const int ldrPin = A0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int lightValue = analogRead(ldrPin);
+
+  Serial.print("Light Value: ");
+  Serial.println(lightValue);
+
+  delay(500);
+}
+```
+
+---
+
+## Working Principle
+
+1. The LDR changes its resistance based on light intensity.
+2. In bright light, the resistance decreases.
+3. In darkness, the resistance increases.
+4. The LDR and 10kΩ resistor form a voltage divider circuit.
+5. Arduino reads the voltage at A0 and converts it into a digital value between 0 and 1023.
+
+---
+
+## Expected Output
+
+### Low Light
+
+```
+Light Value: 120
+Light Value: 150
+Light Value: 180
+```
+
+### Bright Light
+
+```
+Light Value: 700
+Light Value: 850
+Light Value: 950
+```
+
+The exact values may vary depending on the light intensity.
+
+---
+
+## Applications
+
+- Automatic Street Lights
+- Smart Lighting Systems
+- Solar Tracking Systems
+- Light Intensity Measurement
+- Security Systems
+- Home Automation
+
+---
+
+## Learning Outcomes
+
+- Understanding light sensors
+- Reading analog inputs with Arduino
+- Using voltage divider circuits
+- Monitoring sensor values using the Serial Monitor
+- Simulating sensor circuits in Tinkercad
+
+---
+
+## How to Run
+
+1. Open Tinkercad Circuits.
+2. Create a new circuit.
+3. Add an Arduino Uno, LDR, and 10kΩ resistor.
+4. Connect the circuit according to the wiring diagram.
+5. Copy and paste the Arduino code.
+6. Start the simulation.
+7. Adjust the light level of the LDR.
+8. Observe the changing values in the Serial Monitor.
+
+---
+
+## Author
+
+**Sinitha K S**  
+Second Semester Electronics Engineering Student  
+College of Engineering Kidangoor
+
+---
+
+## License
+
+This project is developed for educational and learning purposes.
