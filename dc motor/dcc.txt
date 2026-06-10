@@ -1,0 +1,64 @@
+# Arduino Uno DC Motor Speed Controller (Transistor Driver)
+
+A Tinkercad-simulated power electronics project demonstrating how to safely control the speed of a **DC Motor** using an Arduino Uno and an NPN bipolar junction transistor (BJT) switching network.
+
+## 📌 Project Overview
+Microcontroller output pins are logic channels capable of delivering a maximum current of approximately $20\text{ mA}$. Because standard DC motors demand significantly higher currents ($200\text{ mA}$ to over $1\text{ A}$ under load), direct connection will cause permanent thermal failure to the microcontroller chip.
+
+This project implements an **NPN Transistor (PN2222/equivalent)** acting as an electronic current switch. The Arduino sends a low-current Pulse Width Modulation (PWM) signal to control the gate/base, enabling precise, variable speed control from an external or main power rail without putting the microcontroller at risk.
+
+---
+
+## 🛠️ Circuit Anatomy & Component List
+
+The implementation is structured across a half-size breadboard with active flyback circuit protection:
+
+| Component | Quantity | Purpose |
+| :--- | :--- | :--- |
+| **Arduino Uno R3** | 1 | Microcontroller processing unit |
+| **DC Toy Motor** | 1 | Rotational mechanical output actuator |
+| **NPN Transistor (P)** | 1 | Power amplifier/switch handling heavy current scaling |
+| **Resistor ($1\text{ k}\Omega$)** | 1 | Base current-limiting resistor protecting the Arduino pin from over-current |
+| **Diode (1N4001)** | 1 | Flyback/freewheeling protection diode to dissipate inductive voltage spikes |
+| **Half-Size Breadboard**| 1 | Component integration platform |
+| **Jumper Wires** | Mixed | Power distribution and signal pathways |
+
+### ⚡ Hardware Wiring Configuration
+
+The layout tracks the following electrical configurations:
+
+1. **Power Infrastructure:**
+   * Arduino **5V** $\rightarrow$ Lower Breadboard Positive Power Rail (`+`) [Red Wire]
+   * Arduino **GND** $\rightarrow$ Lower Breadboard Negative Power Rail (`-`) [Black Wire]
+
+2. **Transistor Switching Node:**
+   * **Base Circuit:** Arduino **Pin 9 (PWM)** sends pulses through a yellow jumper down to Column 5. A $1\text{ k}\Omega$ base resistor bridges Column 5 to Column 7, feeding into the **Base (B)** pin of the transistor.
+   * **Emitter Circuit:** The **Emitter (E)** pin of the transistor (Column 8) links directly back to the Ground rail via a short black jumper.
+   * **Collector Circuit:** The **Collector (C)** pin of the transistor (Column 6) connects directly to the negative terminal wire of the DC Motor.
+
+3. **Inductive Flyback Protection Node:**
+   * The DC Motor positive line connects to the positive power rail (Column 13).
+   * The DC Motor negative line routes back to the transistor collector terminal (Column 11).
+   * A **1N4001 Diode** bridges Column 11 and Column 13 directly in parallel with the motor leads. The silver cathode band faces the **Positive Rail** side to block normal current flow and safely absorb backward high-voltage spikes generated when the motor cuts power.
+
+---
+
+## 💻 Source Code
+
+The controller firmware uses a looping Pulse Width Modulation (PWM) duty-cycle algorithm to progressively ramp the motor speed up to full velocity, hold it, and bring it back down to a standstill.
+
+```cpp
+/**
+ * DC Motor Variable Speed Control Firmware
+ * Drives an NPN transistor using 8-bit Pulse Width Modulation (PWM).
+ */
+
+const int motorControlPin = 9; // PWM enabled digital pin connected to transistor base
+
+void setup() {
+  // Configure the control channel as a digital output
+  pinMode(motorControlPin, OUTPUT);
+}
+
+void loop() {
+  // --- ACCELERATION
