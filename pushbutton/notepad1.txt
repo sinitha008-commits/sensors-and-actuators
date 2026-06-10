@@ -1,0 +1,150 @@
+# Push Button with Arduino (Tinkercad)
+
+## Overview
+
+This project demonstrates how to interface a Push Button with an Arduino Uno in Tinkercad. A push button is a simple digital input device that allows users to send a signal to the Arduino when pressed.
+
+The Arduino reads the button state and displays whether the button is pressed or released on the Serial Monitor.
+
+---
+
+## Components Required
+
+- Arduino Uno
+- Push Button (4-Pin)
+- Breadboard
+- Jumper Wires
+- Tinkercad Circuits
+
+---
+
+## Circuit Connections
+
+### Push Button to Arduino
+
+| Push Button Pin | Arduino Connection |
+|----------------|-------------------|
+| Pin 1 (or Pin 2) | D2 |
+| Pin 3 (or Pin 4) | GND |
+
+### Connection Diagram
+
+```
+Arduino D2 -------- Push Button -------- GND
+```
+
+### Note
+
+A 4-pin push button has internally connected pin pairs:
+
+```
+Pin 1 ─── Pin 2
+
+Pin 3 ─── Pin 4
+```
+
+When the button is pressed, all four pins become electrically connected.
+
+---
+
+## Arduino Code
+
+```cpp
+const int buttonPin = 2;
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int buttonState = digitalRead(buttonPin);
+
+  if (buttonState == LOW) {
+    Serial.println("Button Pressed");
+  } else {
+    Serial.println("Button Released");
+  }
+
+  delay(200);
+}
+```
+
+---
+
+## Working Principle
+
+1. The push button acts as a digital switch.
+2. Arduino uses the internal pull-up resistor (`INPUT_PULLUP`).
+3. When the button is not pressed, D2 reads HIGH (1).
+4. When the button is pressed, D2 is connected to GND and reads LOW (0).
+5. The button status is displayed on the Serial Monitor.
+
+---
+
+## Expected Output
+
+### Button Not Pressed
+
+```
+Button Released
+Button Released
+Button Released
+```
+
+### Button Pressed
+
+```
+Button Pressed
+Button Pressed
+Button Pressed
+```
+
+---
+
+## Applications
+
+- User Input Systems
+- Menu Navigation
+- Device ON/OFF Control
+- Home Automation
+- Robotics Projects
+- Interactive Electronics Projects
+
+---
+
+## Learning Outcomes
+
+- Understanding digital input devices
+- Using Arduino digital pins
+- Using INPUT_PULLUP mode
+- Reading button states
+- Displaying output through the Serial Monitor
+- Simulating circuits in Tinkercad
+
+---
+
+## How to Run
+
+1. Open Tinkercad Circuits.
+2. Create a new circuit.
+3. Add an Arduino Uno and a Push Button.
+4. Connect the button to D2 and GND.
+5. Paste the Arduino code into the code editor.
+6. Start the simulation.
+7. Press and release the button.
+8. Observe the output in the Serial Monitor.
+
+---
+
+## Author
+
+**Sinitha K S**  
+Second Semester Electronics Engineering Student  
+College of Engineering Kidangoor
+
+---
+
+## License
+
+This project is developed for educational and learning purposes.
