@@ -1,0 +1,19 @@
+const int tiltPin = 2;
+
+void setup() {
+  pinMode(tiltPin, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int tiltState = digitalRead(tiltPin);
+
+  if (tiltState == LOW) {
+    Serial.println("Tilt Detected");
+  } else {
+    Serial.println("Normal Position");
+  }
+
+  delay(500);
+}
+

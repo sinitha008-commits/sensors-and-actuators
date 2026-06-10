@@ -1,0 +1,138 @@
+# Tilt Sensor with Arduino (Tinkercad)
+
+## Overview
+
+This project demonstrates how to interface a Tilt Sensor with an Arduino Uno in Tinkercad. A tilt sensor detects changes in orientation or inclination. When the sensor is tilted, its internal contacts open or close, producing a digital signal that can be read by the Arduino.
+
+The Arduino monitors the tilt sensor and displays the sensor status on the Serial Monitor.
+
+---
+
+## Components Required
+
+- Arduino Uno
+- Tilt Sensor
+- Breadboard (optional)
+- Jumper Wires
+- Tinkercad Circuits
+
+---
+
+## Circuit Connections
+
+| Tilt Sensor Pin | Arduino Connection |
+|-----------------|-------------------|
+| Pin 1 | D2 |
+| Pin 2 | GND |
+
+### Circuit Diagram
+
+```
+Tilt Sensor          Arduino Uno
+--------------------------------
+Pin 1      --------> D2
+Pin 2      --------> GND
+```
+
+---
+
+## Arduino Code
+
+```cpp
+const int tiltPin = 2;
+
+void setup() {
+  pinMode(tiltPin, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int tiltState = digitalRead(tiltPin);
+
+  if (tiltState == LOW) {
+    Serial.println("Tilt Detected");
+  } else {
+    Serial.println("Normal Position");
+  }
+
+  delay(500);
+}
+```
+
+---
+
+## Working Principle
+
+1. The tilt sensor contains a small conductive ball or contact.
+2. When the sensor is tilted, the contact changes state.
+3. Arduino reads the signal through Digital Pin 2.
+4. If the sensor is tilted, Arduino displays **"Tilt Detected"**.
+5. Otherwise, it displays **"Normal Position"**.
+
+---
+
+## Expected Output
+
+### Normal Position
+
+```
+Normal Position
+Normal Position
+Normal Position
+```
+
+### Tilted Position
+
+```
+Tilt Detected
+Tilt Detected
+Tilt Detected
+```
+
+---
+
+## Applications
+
+- Anti-theft alarm systems
+- Motion and orientation detection
+- Robotics projects
+- Smart devices
+- Safety monitoring systems
+- Position sensing applications
+
+---
+
+## Learning Outcomes
+
+- Understanding digital sensors
+- Reading digital inputs with Arduino
+- Using INPUT_PULLUP mode
+- Displaying sensor status using Serial Monitor
+- Simulating sensor circuits in Tinkercad
+
+---
+
+## How to Run
+
+1. Open Tinkercad Circuits.
+2. Create a new circuit.
+3. Add an Arduino Uno and a Tilt Sensor.
+4. Connect the sensor according to the circuit diagram.
+5. Paste the Arduino code into the code editor.
+6. Start the simulation.
+7. Tilt the sensor in Tinkercad.
+8. Observe the messages in the Serial Monitor.
+
+---
+
+## Author
+
+**Sinitha K S**  
+Second Semester Electronics Engineering Student  
+College of Engineering Kidangoor
+
+---
+
+## License
+
+This project is developed for educational and learning purposes.
