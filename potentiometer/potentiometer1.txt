@@ -1,0 +1,131 @@
+# Potentiometer with Arduino (Tinkercad)
+
+## Overview
+
+This project demonstrates how to interface a potentiometer with an Arduino Uno in Tinkercad. A potentiometer is a variable resistor that allows users to adjust resistance manually. The Arduino reads the analog voltage from the potentiometer and displays the corresponding value on the Serial Monitor.
+
+---
+
+## Components Required
+
+- Arduino Uno
+- Potentiometer (10kΩ)
+- Breadboard
+- Jumper Wires
+- Tinkercad Circuits
+
+---
+
+## Circuit Connections
+
+| Potentiometer Pin | Connection |
+|-------------------|------------|
+| Left Pin | GND |
+| Middle Pin (Wiper) | A0 |
+| Right Pin | 5V |
+
+### Connection Diagram
+
+```
+Potentiometer        Arduino Uno
+--------------------------------
+Left Pin     ------> GND
+Middle Pin   ------> A0
+Right Pin    ------> 5V
+```
+
+---
+
+## Arduino Code
+
+```cpp
+const int potPin = A0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int sensorValue = analogRead(potPin);
+
+  Serial.print("Potentiometer Value: ");
+  Serial.println(sensorValue);
+
+  delay(500);
+}
+```
+
+---
+
+## Working Principle
+
+1. The potentiometer acts as a voltage divider.
+2. Rotating the knob changes the output voltage.
+3. Arduino reads this voltage through analog pin A0.
+4. The analog value ranges from 0 to 1023.
+5. The value is displayed on the Serial Monitor.
+
+---
+
+## Formula Used
+
+The Arduino Analog-to-Digital Converter (ADC) converts voltage into a digital value using:
+
+:contentReference[oaicite:0]{index=0}
+
+Where:
+
+- Vin = Input voltage from the potentiometer
+- Vref = Reference voltage (5V)
+- ADC Value = Digital value between 0 and 1023
+
+---
+
+## Expected Output
+
+Example Serial Monitor Output:
+
+```
+Potentiometer Value: 0
+Potentiometer Value: 256
+Potentiometer Value: 512
+Potentiometer Value: 768
+Potentiometer Value: 1023
+```
+
+As the knob is rotated, the values increase or decrease accordingly.
+
+---
+
+## Applications
+
+- Volume Control
+- Brightness Control
+- Motor Speed Control
+- User Input Devices
+- Sensor Calibration
+- Robotics Projects
+
+---
+
+## Learning Outcomes
+
+- Understanding analog inputs
+- Using Arduino ADC
+- Reading variable resistance values
+- Displaying sensor data using Serial Monitor
+- Simulating circuits in Tinkercad
+
+---
+
+## Author
+
+**Sinitha K S**  
+Second Semester Electronics Engineering Student  
+College of Engineering Kidangoor
+
+---
+
+## License
+
+This project is developed for educational and learning purposes.
