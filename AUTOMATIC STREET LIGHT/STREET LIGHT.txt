@@ -1,0 +1,156 @@
+# 💡 Automatic Street Lighting using LDR Sensor and Arduino
+
+## 📖 Project Description
+
+This project demonstrates an Automatic Street Lighting System using an Arduino Uno, an LDR (Light Dependent Resistor), and an LED.
+
+The LDR continuously measures the surrounding light intensity. When the environment becomes dark, the Arduino automatically turns ON the LED, simulating a street light. When sufficient light is detected, the LED turns OFF automatically.
+
+This project is a simple example of smart lighting and energy-saving automation.
+
+---
+
+## 🎯 Objectives
+
+- Detect ambient light levels using an LDR sensor.
+- Automatically control an LED based on light intensity.
+- Reduce energy consumption through automatic switching.
+- Understand analog sensor interfacing with Arduino.
+
+---
+
+## 🛠 Components Used
+
+| Component | Quantity |
+|------------|-----------|
+| Arduino Uno | 1 |
+| LDR (Photoresistor) | 1 |
+| LED | 1 |
+| 220Ω Resistor | 1 |
+| 10kΩ Resistor | 1 |
+| Breadboard | 1 |
+| Jumper Wires | As Required |
+
+---
+
+## 🔌 Circuit Connections
+
+### LDR Sensor
+
+| Component | Connection |
+|------------|------------|
+| LDR One End | 5V |
+| LDR Other End | A0 |
+| 10kΩ Resistor | A0 to GND |
+
+### LED
+
+| LED Pin | Arduino Connection |
+|----------|-------------------|
+| Anode (+) | Digital Pin 8 |
+| Cathode (-) | GND through 220Ω resistor |
+
+---
+
+## ⚙️ Working Principle
+
+1. The LDR senses the surrounding light intensity.
+2. Arduino reads the analog value from pin A0.
+3. When the light intensity decreases (dark condition):
+   - LED turns ON.
+4. When the light intensity increases (bright condition):
+   - LED turns OFF.
+5. This mimics the operation of an automatic street lighting system.
+
+---
+
+## 💻 Arduino Code
+
+```cpp
+const int ldrPin = A0;
+const int ledPin = 8;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  int ldrValue = analogRead(ldrPin);
+
+  Serial.print("LDR Value: ");
+  Serial.println(ldrValue);
+
+  if (ldrValue < 500) {
+    digitalWrite(ledPin, HIGH);
+  }
+  else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  delay(100);
+}
+```
+
+---
+
+## 📷 Circuit Diagram
+
+Add the circuit image to your repository as:
+
+```text
+circuit_diagram.png
+```
+
+Then include it using:
+
+```markdown
+![Circuit Diagram](circuit_diagram.png)
+```
+
+---
+
+## 🚀 Applications
+
+- Automatic Street Lights
+- Smart Home Lighting
+- Garden Lighting Systems
+- Energy Conservation Systems
+- Industrial Lighting Automation
+
+---
+
+## 🧪 Simulation Platform
+
+Tinkercad Circuits
+
+---
+
+## 📚 Technologies Used
+
+- Arduino Uno
+- Embedded C / C++
+- Tinkercad
+- Sensor Interfacing
+
+---
+
+## 📈 Expected Output
+
+| Condition | LED Status |
+|------------|------------|
+| Bright Light | OFF |
+| Dark Environment | ON |
+
+---
+
+## 👩‍💻 Author
+
+**Sinitha (Nithu)**
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
