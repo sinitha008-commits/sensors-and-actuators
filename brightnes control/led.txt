@@ -1,0 +1,164 @@
+# 💡 LED Brightness Control using Potentiometer and Arduino
+
+## 📖 Project Description
+
+This project demonstrates LED Brightness Control using an Arduino Uno, a Potentiometer, and an LED.
+
+The potentiometer acts as an analog input device. As the knob is rotated, the Arduino reads the varying voltage and adjusts the LED brightness using Pulse Width Modulation (PWM). This allows smooth control of the LED intensity from OFF to fully ON.
+
+This project is an excellent introduction to analog inputs and PWM outputs in Arduino.
+
+---
+
+## 🎯 Objectives
+
+- Read analog values using a potentiometer.
+- Control LED brightness using PWM.
+- Understand analog-to-digital conversion.
+- Learn how Arduino generates variable output signals.
+
+---
+
+## 🛠 Components Used
+
+| Component | Quantity |
+|------------|-----------|
+| Arduino Uno | 1 |
+| Potentiometer (10kΩ) | 1 |
+| LED | 1 |
+| 220Ω Resistor | 1 |
+| Breadboard | 1 |
+| Jumper Wires | As Required |
+
+---
+
+## 🔌 Circuit Connections
+
+### Potentiometer
+
+| Potentiometer Pin | Arduino Connection |
+|-------------------|-------------------|
+| Left Pin | 5V |
+| Middle Pin | A0 |
+| Right Pin | GND |
+
+### LED
+
+| LED Pin | Arduino Connection |
+|----------|-------------------|
+| Anode (+) | PWM Pin D9 through 220Ω resistor |
+| Cathode (-) | GND |
+
+---
+
+## ⚙️ Working Principle
+
+1. The potentiometer generates a variable voltage between 0V and 5V.
+2. Arduino reads this voltage through analog pin A0.
+3. The analog value ranges from 0 to 1023.
+4. Arduino converts this value to a PWM range of 0 to 255.
+5. The PWM signal is sent to pin D9.
+6. LED brightness changes smoothly according to the potentiometer position.
+
+---
+
+## 💻 Arduino Code
+
+```cpp
+const int potPin = A0;
+const int ledPin = 9;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+
+  int potValue = analogRead(potPin);
+
+  int brightness = map(potValue, 0, 1023, 0, 255);
+
+  analogWrite(ledPin, brightness);
+
+  delay(10);
+}
+```
+
+---
+
+## 📷 Circuit Diagram
+
+Save your Tinkercad circuit image as:
+
+```text
+circuit_diagram.png
+```
+
+Add it to the README:
+
+```markdown
+![Circuit Diagram](circuit_diagram.png)
+```
+
+---
+
+## 🚀 Applications
+
+- LED Dimmer Systems
+- Home Lighting Control
+- Brightness Adjustment Circuits
+- PWM Learning Projects
+- Embedded Systems Training
+
+---
+
+## 🧪 Simulation Platform
+
+Tinkercad Circuits
+
+---
+
+## 📚 Technologies Used
+
+- Arduino Uno
+- Embedded C/C++
+- PWM (Pulse Width Modulation)
+- Potentiometer
+- Tinkercad
+
+---
+
+## 📈 Expected Output
+
+| Potentiometer Position | LED Brightness |
+|------------------------|---------------|
+| Minimum | OFF |
+| Low | Dim |
+| Medium | Moderate |
+| High | Bright |
+| Maximum | Fully ON |
+
+---
+
+## 📁 Project Structure
+
+```text
+LED-Brightness-Control/
+│
+├── README.md
+├── brightness_control.ino
+├── circuit_diagram.png
+└── LICENSE
+```
+
+---
+
+## 👩‍💻 Author
+
+**Sinitha (Nithu)**
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
