@@ -1,0 +1,50 @@
+# Powerful Bigery-Bombul 🕹️⚡
+
+A simple, interactive electronics simulation built in Tinkercad that demonstrates real-time hardware control using an Arduino Uno R3. 
+
+This project reads analog data from a potentiometer (rotary knob) and translates it into physical movement via a micro servo motor.
+
+## 📸 Circuit Layout
+
+The system uses a standard 5V rail shared across a breadboard to power both the input sensor and the output actuator.
+
+* **Project Name:** Powerful Bigery-Bombul (Tinkercad Generated)
+* **Microcontroller:** Arduino Uno R3
+* **Input:** $10\text{ k}\Omega$ Potentiometer
+* **Output:** Micro Servo Motor (SG90)
+
+---
+
+## 🔌 Hardware Wiring Diagram
+
+| Component | Component Pin | Arduino Pin | Wire Color (in Simulation) |
+| :--- | :--- | :--- | :--- |
+| **Potentiometer** | Terminal 1 (Left) | GND (via Rail) | Black |
+| | Wiper (Middle) | **Analog A0** | Orange |
+| | Terminal 2 (Right) | 5V (via Rail) | Red |
+| **Servo Motor** | Ground (Black) | GND (via Rail) | Black / Brown |
+| | Power (Red) | 5V (via Rail) | Red |
+| | Signal (Orange) | **Digital 9** | Orange |
+
+---
+
+## 🧠 How It Works
+
+1. **Analog Input:** Turning the potentiometer changes the resistance, sending a variable voltage ($0\text{V}$ to $5\text{V}$) to the Arduino's Analog pin `A0`.
+2. **Signal Processing:** The Arduino converts this analog voltage into a digital value ranging from `0` to `1023`.
+3. **Mapping:** The code maps the input value proportionally down to a standard servo rotation angle between $0^\circ$ and $180^\circ$.
+4. **PWM Output:** The Arduino outputs a Pulse Width Modulation (PWM) signal from Digital pin `9` to position the servo horn precisely.
+
+---
+
+## 🚀 How to Use This Repository
+
+### 1. Run it in Tinkercad
+* Recreate the circuit using the wiring table provided above.
+* Add a standard Arduino servo sweep/knob code adjusting the input to `A0` and output to `Pin 9`.
+* Click **Start Simulation**.
+
+### 2. Clone and Deploy Locally
+If you want to build this physically:
+```bash
+git clone [https://github.com/YOUR-USERNAME/Powerful-Bigery-Bombul.git](https://github.com/YOUR-USERNAME/Powerful-Bigery-Bombul.git)
