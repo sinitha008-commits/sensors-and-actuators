@@ -1,0 +1,157 @@
+# 🚶 Motion Detection Light using PIR Sensor and Arduino
+
+## 📖 Project Description
+
+This project demonstrates a Motion Detection Light System using an Arduino Uno, a PIR (Passive Infrared) Sensor, and an LED.
+
+The PIR sensor detects human movement by sensing changes in infrared radiation. When motion is detected, the Arduino automatically turns ON the LED. When no motion is detected, the LED remains OFF.
+
+This project is widely used in automatic lighting systems, security systems, and smart home applications.
+
+---
+
+## 🎯 Objectives
+
+- Detect human motion using a PIR sensor.
+- Automatically control an LED based on motion detection.
+- Learn digital sensor interfacing with Arduino.
+- Implement a simple security and automation system.
+
+---
+
+## 🛠 Components Used
+
+| Component | Quantity |
+|------------|-----------|
+| Arduino Uno | 1 |
+| PIR Motion Sensor (HC-SR501) | 1 |
+| LED | 1 |
+| 220Ω Resistor | 1 |
+| Breadboard | 1 |
+| Jumper Wires | As Required |
+
+---
+
+## 🔌 Circuit Connections
+
+### PIR Sensor
+
+| PIR Pin | Arduino Connection |
+|----------|-------------------|
+| VCC | 5V |
+| GND | GND |
+| OUT | Digital Pin 2 |
+
+### LED
+
+| LED Pin | Arduino Connection |
+|----------|-------------------|
+| Anode (+) | Digital Pin 8 |
+| Cathode (-) | GND through 220Ω resistor |
+
+---
+
+## ⚙️ Working Principle
+
+1. The PIR sensor continuously monitors its surroundings.
+2. When motion is detected, the PIR sensor outputs a HIGH signal.
+3. Arduino reads the signal from the PIR sensor.
+4. If motion is detected:
+   - LED turns ON.
+5. If no motion is detected:
+   - LED turns OFF.
+6. The process repeats continuously.
+
+---
+
+## 💻 Arduino Code
+
+```cpp
+const int pirPin = 2;
+const int ledPin = 8;
+
+void setup() {
+  pinMode(pirPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  int motion = digitalRead(pirPin);
+
+  if (motion == HIGH) {
+    digitalWrite(ledPin, HIGH);
+    Serial.println("Motion Detected!");
+  }
+  else {
+    digitalWrite(ledPin, LOW);
+    Serial.println("No Motion");
+  }
+
+  delay(100);
+}
+```
+
+---
+
+## 📷 Circuit Diagram
+
+Save the uploaded circuit image as:
+
+```text
+circuit_diagram.png
+```
+
+Then include it in GitHub using:
+
+```markdown
+![Circuit Diagram](circuit_diagram.png)
+```
+
+---
+
+## 🚀 Applications
+
+- Motion Activated Lighting
+- Smart Home Automation
+- Security Systems
+- Intruder Detection
+- Automatic Corridor Lighting
+- Energy Saving Systems
+
+---
+
+## 🧪 Simulation Platform
+
+Tinkercad Circuits
+
+---
+
+## 📚 Technologies Used
+
+- Arduino Uno
+- Embedded C/C++
+- PIR Motion Sensor
+- Tinkercad
+
+---
+
+## 📈 Expected Output
+
+| Condition | LED Status |
+|------------|------------|
+| Motion Detected | ON |
+| No Motion | OFF |
+
+---
+
+## 👩‍💻 Author
+
+**Sinitha (Nithu)**
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
