@@ -1,0 +1,166 @@
+# 🔔 Door Bell System using Push Button and Arduino
+
+## 📖 Project Description
+
+This project demonstrates a simple Door Bell System using an Arduino Uno, a Push Button, a Buzzer, and an LED.
+
+When the push button is pressed, the Arduino activates the buzzer to produce a sound and turns ON the LED as an indication. When the button is released, both the buzzer and LED turn OFF.
+
+This project is ideal for beginners learning digital input and output interfacing with Arduino.
+
+---
+
+## 🎯 Objectives
+
+- Detect button press using a push button.
+- Activate a buzzer as a doorbell.
+- Indicate button status using an LED.
+- Learn basic Arduino input and output operations.
+
+---
+
+## 🛠 Components Used
+
+| Component | Quantity |
+|------------|-----------|
+| Arduino Uno | 1 |
+| Push Button | 1 |
+| Buzzer | 1 |
+| LED | 1 |
+| 220Ω Resistor | 1 |
+| 10kΩ Resistor | 1 |
+| Breadboard | 1 |
+| Jumper Wires | As Required |
+
+---
+
+## 🔌 Circuit Connections
+
+### Push Button
+
+| Push Button Pin | Arduino Connection |
+|-----------------|-------------------|
+| One Side | Digital Pin 2 |
+| Other Side | 5V |
+| Pull-down Resistor | 10kΩ between Pin 2 and GND |
+
+### Buzzer
+
+| Buzzer Pin | Arduino Connection |
+|------------|-------------------|
+| Positive (+) | Digital Pin 7 |
+| Negative (-) | GND |
+
+### LED
+
+| LED Pin | Arduino Connection |
+|----------|-------------------|
+| Anode (+) | Digital Pin 6 |
+| Cathode (-) | GND through 220Ω resistor |
+
+---
+
+## ⚙️ Working Principle
+
+1. The Arduino continuously monitors the push button.
+2. When the button is pressed:
+   - Arduino detects a HIGH signal.
+   - Buzzer turns ON.
+   - LED turns ON.
+3. When the button is released:
+   - Buzzer turns OFF.
+   - LED turns OFF.
+4. The process repeats continuously.
+
+---
+
+## 💻 Arduino Code
+
+```cpp
+const int buttonPin = 2;
+const int buzzerPin = 7;
+const int ledPin = 6;
+
+void setup() {
+  pinMode(buttonPin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+
+  int buttonState = digitalRead(buttonPin);
+
+  if (buttonState == HIGH) {
+    digitalWrite(buzzerPin, HIGH);
+    digitalWrite(ledPin, HIGH);
+  }
+  else {
+    digitalWrite(buzzerPin, LOW);
+    digitalWrite(ledPin, LOW);
+  }
+}
+```
+
+---
+
+## 📷 Circuit Diagram
+
+Save the circuit image as:
+
+```text
+circuit_diagram.png
+```
+
+Add it to the README using:
+
+```markdown
+![Circuit Diagram](circuit_diagram.png)
+```
+
+---
+
+## 🚀 Applications
+
+- Electronic Door Bells
+- Calling Systems
+- Alert Systems
+- School and Office Notification Systems
+- Basic Home Automation Projects
+
+---
+
+## 🧪 Simulation Platform
+
+Tinkercad Circuits
+
+---
+
+## 📚 Technologies Used
+
+- Arduino Uno
+- Embedded C/C++
+- Push Button Interface
+- Buzzer Control
+- Tinkercad
+
+---
+
+## 📈 Expected Output
+
+| Button Status | LED | Buzzer |
+|---------------|-----|---------|
+| Pressed | ON | ON |
+| Released | OFF | OFF |
+
+---
+
+## 👩‍💻 Author
+
+**Sinitha (Nithu)**
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
