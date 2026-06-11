@@ -1,0 +1,50 @@
+# Gas Leakage Detector (Interface Prototype) 🚨
+
+A Tinkercad circuit simulation demonstrating basic digital input and output processing using an Arduino Uno R3. This setup acts as the control logic prototype for a safety alert system, using a push-button input to toggle a status LED indicator.
+
+---
+
+## 📸 Circuit Layout
+
+The system utilizes a central breadboard to distribute logic signals, power, and ground connections securely across the components.
+
+* **Project Name:** Copy of Gas Leakage detector (Tinkercad Generated)
+* **Microcontroller:** Arduino Uno R3
+* **Input:** 4-Pin Pushbutton (with pull-down resistor logic)
+* **Output:** Red Indicator LED (with current-limiting protection resistor)
+
+---
+
+## 🔌 Hardware Wiring Diagram
+
+| Component | Connection Pin | Arduino Pin / Rail | Wire Color (in Simulation) |
+| :--- | :--- | :--- | :--- |
+| **Power Input** | 5V Power Source | Breadboard **Positive Rail (+)** | Green |
+| **Ground Link** | GND | Breadboard **Negative Rail (-)** | Black |
+| **LED** | Anode (Long Leg) | **Digital Pin 8** (via resistor) | Green |
+| | Cathode (Short Leg) | Breadboard **Negative Rail (-)** | Direct to ground rail |
+| **Pushbutton** | Terminal 1a / 2a | Breadboard **Positive Rail (+)** | Green |
+| | Terminal 1b / 2b | **Digital Pin 2** (via signal wire) | Blue |
+| | Pull-Down Ground | Breadboard **Negative Rail (-)** (via resistor) | Direct to ground rail |
+
+---
+
+## 🧠 System Logic & Working
+
+1. **Default State (Low):** The pushbutton pin on the Arduino (`Pin 2`) is held safely at $0\text{V}$ (LOW) through a pull-down resistor tied directly to the ground rail. The indicator LED remains off.
+2. **Trigger State (High):** Pressing the button bridges the connection to the 5V positive power rail. This instantly drives `Pin 2` to a HIGH logic state.
+3. **Microcontroller Response:** The Arduino senses this digital voltage change and sets `Pin 8` to HIGH, supplying power through the current-limiting resistor to light up the alert LED.
+
+---
+
+## 🚀 How to Use This Repository
+
+### 1. Run it in Tinkercad
+* Assemble the components following the wiring diagram matrix detailed above.
+* Flash a basic button-read sketch mapped to Input `Pin 2` and Output `Pin 8`.
+* Click **Start Simulation** to test the toggle behavior.
+
+### 2. Physical Deployment
+Clone the project repository to your local directory:
+```bash
+git clone [https://github.com/YOUR-USERNAME/Gas-Leakage-Detector.git](https://github.com/YOUR-USERNAME/Gas-Leakage-Detector.git)
