@@ -1,0 +1,165 @@
+# 🌡️ Temperature Controlled Fan using Arduino
+
+## 📖 Project Description
+
+This project implements a Temperature Controlled Fan using an Arduino Uno, a TMP36 temperature sensor, a DC motor, and a 16x2 LCD display.
+
+The TMP36 sensor continuously monitors the ambient temperature. When the temperature exceeds a predefined threshold, the Arduino automatically turns ON the DC motor (fan). The current temperature and fan status are displayed on the LCD screen.
+
+This project demonstrates the use of sensors, actuators, and display modules in Arduino-based automation systems.
+
+---
+
+## 🎯 Objectives
+
+- Monitor ambient temperature using a TMP36 sensor.
+- Display temperature readings on an LCD.
+- Automatically control a DC motor based on temperature.
+- Demonstrate a simple home automation and cooling system.
+
+---
+
+## 🛠 Components Used
+
+| Component | Quantity |
+|------------|-----------|
+| Arduino Uno | 1 |
+| TMP36 Temperature Sensor | 1 |
+| DC Motor | 1 |
+| 16x2 LCD Display | 1 |
+| Push Button | 1 |
+| Breadboard | 1 |
+| Resistors | As Required |
+| Jumper Wires | As Required |
+
+---
+
+## 🔌 Circuit Connections
+
+### TMP36 Sensor
+
+| TMP36 Pin | Arduino Connection |
+|-----------|-------------------|
+| VCC | 5V |
+| VOUT | A0 |
+| GND | GND |
+
+### DC Motor
+
+| Motor Pin | Arduino Connection |
+|-----------|-------------------|
+| Positive | Digital Pin 9 |
+| Negative | GND |
+
+### LCD Display
+
+Connected to Arduino digital pins for displaying:
+
+- Temperature
+- Fan Status
+
+### Push Button
+
+Connected as an input switch for user interaction.
+
+---
+
+## ⚙️ Working Principle
+
+1. The TMP36 sensor senses the ambient temperature.
+2. Arduino reads the analog value from the sensor.
+3. The value is converted into temperature in Celsius.
+4. If the temperature exceeds the threshold value:
+   - Fan turns ON.
+   - LCD displays "Fan ON".
+5. If the temperature falls below the threshold:
+   - Fan turns OFF.
+   - LCD displays "Fan OFF".
+
+---
+
+## 💻 Arduino Code
+
+```cpp
+const int tempPin = A0;
+const int motorPin = 9;
+
+void setup() {
+  pinMode(motorPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  int reading = analogRead(tempPin);
+
+  float voltage = reading * (5.0 / 1023.0);
+
+  float temperatureC = (voltage - 0.5) * 100.0;
+
+  Serial.print("Temperature: ");
+  Serial.print(temperatureC);
+  Serial.println(" C");
+
+  if (temperatureC > 30) {
+    digitalWrite(motorPin, HIGH);
+  } else {
+    digitalWrite(motorPin, LOW);
+  }
+
+  delay(1000);
+}
+```
+
+---
+
+## 📷 Circuit Diagram
+
+Add your Tinkercad circuit image here:
+
+```
+circuit_diagram.png
+```
+
+Example:
+
+```markdown
+![Circuit Diagram](circuit_diagram.png)
+```
+
+---
+
+## 🚀 Applications
+
+- Smart Cooling Systems
+- Home Automation
+- Temperature Monitoring
+- Greenhouse Control
+- Industrial Monitoring Systems
+
+---
+
+## 🧪 Simulation Platform
+
+Tinkercad Circuits
+
+---
+
+## 📚 Technologies Used
+
+- Arduino IDE
+- C/C++
+- Tinkercad
+- Embedded Systems
+
+---
+
+## 👩‍💻 Author
+
+**Sinitha (Nithu)**
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
