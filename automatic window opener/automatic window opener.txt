@@ -1,0 +1,79 @@
+# Automatic Window Opener
+
+An Arduino-based automation project designed to control a window mechanism using light sensing. The system reads ambient light levels using a Light Dependent Resistor (LDR) and triggers a micro servo motor to rotate, simulating the physical opening or closing of a window based on day and night cycles.
+
+---
+
+## Project Overview
+
+This project serves as a smart-home prototype for an automated window or blind controller. When morning arrives (high ambient light), the system triggers the servo motor to open the window. When night falls (low ambient light), the servo rotates back to close it. 
+
+The circuit is designed and visualized using **Tinkercad**.
+
+---
+
+## Components Required
+
+| Component | Quantity | Description |
+| :--- | :---: | :--- |
+| **Arduino Uno R3** | 1 | The main microcontroller board to process inputs and control the motor. |
+| **Micro Servo Motor** | 1 | Actuator responsible for physical movement (opening/closing). |
+| **Photoresistor (LDR)** | 1 | Light sensor to detect changes in ambient light levels. |
+| **Resistor (10kΩ)** | 1 | Pull-down resistor forming a voltage divider with the LDR. |
+| **Jumper Wires** | Various | Electrical connections between components. |
+
+---
+
+## Circuit Connections
+
+### 1. Micro Servo Motor
+* **Signal (Orange Wire):** Connected to **Digital Pin 9** (PWM-enabled pin on the Arduino).
+* **Power / VCC (Red Wire):** Connected to the **5V** pin on the Arduino.
+* **Ground / GND (Brown Wire):** Connected to the **GND** pin on the Arduino.
+
+### 2. Light Dependent Resistor (LDR) Voltage Divider
+* One leg of the LDR connects directly to the **5V** pin on the Arduino.
+* The other leg connects to a **10kΩ resistor** and **Analog Pin A0** (Black wire acting as the signal line).
+* The remaining leg of the 10kΩ resistor connects to the **GND** pin on the Arduino.
+
+---
+
+## How It Works
+
+1. **Light Sensing:** The combination of the LDR and the 10kΩ resistor creates a voltage divider. As light intensity changes, the resistance of the LDR changes, altering the voltage sent to analog pin **A0**.
+2. **Data Processing:** The Arduino reads this changing analog voltage (a value between 0 and 1023). 
+3. **Actuation:** If the light value passes a predefined threshold (e.g., daytime), the Arduino sends a signal to the servo motor to rotate to a specific angle (e.g., 90° or 180° for "open"). If the value drops below the threshold (nighttime), the servo returns to its baseline position (0° for "closed").
+
+---
+
+## Sample Code
+
+You can upload the following code to your Arduino via the Arduino IDE to run this circuit:
+
+```cpp
+#include <Servo.h>
+
+// Pin definitions
+const int ldrPin = A0;  // Analog pin connected to LDR
+const int servoPin = 9; // Digital pin connected to Servo signal
+
+Servo windowServo;      // Create a servo object
+
+// Threshold variable - adjust based on your room's lighting condition
+const int lightThreshold = 500; 
+
+void setup() {
+  windowServo.attach(servoPin); // Attaches the servo to pin 9
+  Serial.begin(9600);           // Initialize serial communication for monitoring
+  windowServo.write(0);         // Start with window closed
+}
+
+void loop() {
+  int lightValue = analogRead(ldrPin); // Read the light level
+  Serial.print("Light Level: ");
+  Serial.println(lightValue);
+
+  // If it's bright, open the window
+  if (lightValue > lightThreshold) {
+    windowServo.write(90);  // Rotate servo to 90 degrees (Open)
+  }
